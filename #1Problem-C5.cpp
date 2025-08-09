@@ -1,4 +1,7 @@
-// Problem #1 Multiplication Table from 1 to 10
+// Problem #2 Prime Number from 1 To N
+// write a program to print all prime numbers form 1 To N
+
+
 
 
 #include <iostream>
@@ -6,49 +9,59 @@
 #include <string>
 using namespace std;
 
-void PrintTableHeader ()
+enum enPrimeNotPrime {Prime = 1, NotPrime = 2};
+
+int ReadPositiveNumber (string Message) 
 {
-    cout << "\n\n\t\t\t Multiplication Table from 1 - 10\n\n"; 
-    cout <<"\t ";
+    int Number = 0; 
+    do {
+        cout << Message <<endl;
 
-    for (int i = 1 ; i <= 10; i++)
-    {
-        cout << i <<"\t "; 
-    }
+        cin >> Number; 
+        
+    } while (Number <= 0);
 
-    cout<< "\n______________________________________________________________________________\n";
+    return Number;
 }
 
-string ColumSperator(int i) 
+enPrimeNotPrime CheckPrime(int Number)
 {
-    if (i < 10)
-    return "  |"; 
-    else
 
-    return " |";
-    }
+    int M = round (Number / 2);
 
+    for (int Counter = 2 ; Counter <= M; Counter++) 
+        {
+            if (Number % Counter == 0 )
+                return enPrimeNotPrime :: NotPrime;
+        }   
 
-void PrintMultiplicationTable()
-{
-    PrintTableHeader();
-
-for (int i=1 ; i<= 10; i++)
-{
-    cout<<" "<< i << ColumSperator(i)<<"\t";
-
-    for (int j=1; j<= 10; j++)
-    {
-        cout << i * j <<"\t";
-    }
-
-    cout<<endl;
+        return enPrimeNotPrime :: Prime;
 }
+
+void PrintPrimeNumbersFrom1ToN(int Number)
+{
+
+    cout << "\n"; // for better formatting 
+    
+    cout << "Prime Numbers from "<< 1<< " To "<< Number;
+    cout << " are: "<< endl;
+
+
+    for (int i = 1 ; i<= Number ; i++)
+    {
+        if(CheckPrime(i) == enPrimeNotPrime::Prime)
+        {
+            cout<< i <<endl;
+        }
+    }
+
 
 }
 
 int main ()
 {
 
-    PrintMultiplicationTable();
+    PrintPrimeNumbersFrom1ToN(ReadPositiveNumber("Please Enter a positive number! "));
+
+    return 0; 
 }
